@@ -29,11 +29,8 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           // Calcuating Discounted Price
           double discountedPrice = (productMo.price -
               (productMo.price * (productMo.discountPrecentage / 100)));
-          productMo.discountedPrice = double.parse(discountedPrice.toStringAsFixed(2));
-
-          log('Original Price: ${productMo.price}');
-          log('Discount Percent: ${productMo.discountPrecentage}');
-          log('Discounted Price: ${productMo.discountedPrice}');
+          productMo.discountedPrice =
+              double.parse(discountedPrice.toStringAsFixed(2));
 
           ProductEntity productEn = ProductMapper.mapToEntity(productMo);
           products.add(productEn);

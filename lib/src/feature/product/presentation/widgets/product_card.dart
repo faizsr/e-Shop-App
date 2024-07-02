@@ -2,7 +2,9 @@ import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:ecommerce_app/src/config/constants/app_textstyles.dart';
 import 'package:ecommerce_app/src/config/utils/gap.dart';
 import 'package:ecommerce_app/src/feature/product/domain/entities/product_entity.dart';
+import 'package:ecommerce_app/src/feature/product/domain/use_cases/get_discount_status_usecase.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommerce_app/injection_container.dart' as di;
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -59,30 +61,20 @@ class ProductCard extends StatelessWidget {
             gap(height: 15),
             Row(
               children: [
+                discountWidget(),
                 Text(
-                  "\$${product.price}",
+                  "\$${product.discountedPrice.round()}",
                   style: const TextStyle(
-                    fontSize: 10,
-                    color: Colors.grey,
-                    fontWeight: FontWeight.w500,
-                    fontStyle: FontStyle.italic,
-                    decoration: TextDecoration.lineThrough,
-                  ),
-                ),
-                gap(width: 8),
-                Text(
-                  "\$${product.discountedPrice}",
-                  style: const TextStyle(
-                    fontSize: 10,
+                    fontSize: 12,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 gap(width: 8),
                 Text(
-                  "${product.discountPrecentage}% off",
+                  "${product.discountPrecentage.round()}% off",
                   style: const TextStyle(
-                    fontSize: 10,
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
                     color: Colors.amberAccent,
                     fontStyle: FontStyle.italic,
@@ -93,6 +85,32 @@ class ProductCard extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  FutureBuilder<bool> discountWidget() {
+    return FutureBuilder(
+      future: di.getIt<GetDiscountStatusUsecase>().call(),
+      builder: (context, snapshot) {
+        if (snapshot.hasData) {
+          return snapshot.data ?? false
+              ? Padding(
+                  padding: const EdgeInsets.only(right: 8.0),
+                  child: Text(
+                    "\$${product.price.round()}",
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.w500,
+                      fontStyle: FontStyle.italic,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                )
+              : gap();
+        }
+        return gap();
+      },
     );
   }
 }
