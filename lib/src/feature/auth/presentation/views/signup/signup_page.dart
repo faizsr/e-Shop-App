@@ -11,6 +11,7 @@ import 'package:ecommerce_app/src/feature/auth/presentation/views/login/login_pa
 import 'package:ecommerce_app/src/feature/auth/presentation/widgets/auth_helper_widget.dart';
 import 'package:ecommerce_app/src/feature/auth/presentation/widgets/custom_filled_button.dart';
 import 'package:ecommerce_app/src/feature/auth/presentation/widgets/custom_text_form_field.dart';
+import 'package:ecommerce_app/src/feature/auth/presentation/widgets/password_text_field.dart';
 import 'package:ecommerce_app/src/feature/product/presentation/views/product_list/product_list_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -72,11 +73,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   hintText: 'Email',
                 ),
                 gap(height: 20),
-                CustomTextFormField(
-                  controller: passwordController,
-                  validator: validatePassword,
-                  hintText: 'Password',
-                ),
+                PasswordTextField(passwordController: passwordController),
                 const Spacer(),
                 CustomFilledButton(
                   onPressed: onSignUpPressed,

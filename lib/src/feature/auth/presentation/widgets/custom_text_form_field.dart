@@ -1,4 +1,5 @@
 import 'package:ecommerce_app/src/config/constants/app_colors.dart';
+
 import 'package:flutter/material.dart';
 
 class CustomTextFormField extends StatelessWidget {
@@ -7,10 +8,14 @@ class CustomTextFormField extends StatelessWidget {
     required this.controller,
     required this.validator,
     required this.hintText,
+    this.obscureText = false,
+    this.suffixWidget,
   });
   final TextEditingController? controller;
   final String? Function(String?)? validator;
   final String hintText;
+  final bool obscureText;
+  final Widget? suffixWidget;
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +23,7 @@ class CustomTextFormField extends StatelessWidget {
       validator: validator,
       controller: controller,
       style: const TextStyle(fontSize: 15),
+      obscureText: obscureText,
       decoration: InputDecoration(
         hintText: hintText,
         hintStyle: const TextStyle(fontSize: 15),
@@ -34,6 +40,7 @@ class CustomTextFormField extends StatelessWidget {
           borderSide: BorderSide.none,
           borderRadius: BorderRadius.circular(10),
         ),
+        suffixIcon: suffixWidget,
       ),
     );
   }

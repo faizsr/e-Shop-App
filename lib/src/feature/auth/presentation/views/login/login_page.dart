@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:ecommerce_app/src/config/utils/navigates.dart';
 import 'package:ecommerce_app/src/config/utils/validations.dart';
+import 'package:ecommerce_app/src/feature/auth/presentation/widgets/password_text_field.dart';
 import 'package:ecommerce_app/src/feature/product/presentation/views/product_list/product_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -29,6 +30,8 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
+    final authContoller = Provider.of<AuthController>(context, listen: false);
+
     return SafeArea(
       child: Scaffold(
         appBar: PreferredSize(
@@ -55,11 +58,7 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: 'Email',
                 ),
                 gap(height: 20),
-                CustomTextFormField(
-                  controller: passwordController,
-                  validator: validatePasswordLogin,
-                  hintText: 'Password',
-                ),
+                PasswordTextField(passwordController: passwordController),
                 const Spacer(),
                 CustomFilledButton(
                   onPressed: onLoginPressed,
@@ -71,6 +70,9 @@ class _LoginPageState extends State<LoginPage> {
                   text2: 'Signup',
                   onTap: () {
                     nextScreen(context, const SignUpPage());
+                    authContoller.resetToggle();
+                    passwordController.clear();
+                    emailController.clear();
                   },
                 )
               ],

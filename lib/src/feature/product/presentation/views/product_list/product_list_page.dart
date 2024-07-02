@@ -35,7 +35,7 @@ class _ProductListPageState extends State<ProductListPage> {
           child: Consumer<ProductController>(
             builder: (context, value, child) {
               if (value.isLoading) {
-                return const Center(
+                return Center(
                   child: CircularProgressIndicator(
                     strokeWidth: 3,
                     color: AppColors.blue,
@@ -71,6 +71,7 @@ class _ProductListPageState extends State<ProductListPage> {
 
   Future onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
-    Provider.of<ProductController>(context, listen: false).fetchAllProducts(true);
+    Provider.of<ProductController>(context, listen: false)
+        .fetchAllProducts(true);
   }
 }

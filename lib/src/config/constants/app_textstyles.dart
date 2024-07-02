@@ -2,7 +2,7 @@ import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
 class AppTextStyles {
-  static TextStyle heading() => const TextStyle(
+  static TextStyle heading() => TextStyle(
         fontSize: 22,
         fontWeight: FontWeight.bold,
         color: AppColors.blue,
@@ -14,7 +14,7 @@ class AppTextStyles {
         fontWeight: FontWeight.w600,
       );
 
-  static TextStyle help() => const TextStyle(
+  static TextStyle help() => TextStyle(
         fontWeight: FontWeight.bold,
         color: AppColors.blue,
       );

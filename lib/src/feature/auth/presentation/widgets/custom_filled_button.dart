@@ -31,6 +31,7 @@ class CustomFilledButton extends StatelessWidget {
         );
 
         return MaterialButton(
+          elevation: 0,
           minWidth: MediaQuery.of(context).size.width * 0.6,
           height: 48,
           shape: RoundedRectangleBorder(

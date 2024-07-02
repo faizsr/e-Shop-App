@@ -22,6 +22,7 @@ class AuthController extends ChangeNotifier {
 
   bool isLoading = false;
   String result = '';
+  bool isObscure = true;
 
   Future<void> signUp(UserEntity user) async {
     isLoading = true;
@@ -54,6 +55,16 @@ class AuthController extends ChangeNotifier {
   Future<void> signOut() async {
     await signOutUsecase.call();
     await userStatusUsecase.save(false);
+    notifyListeners();
+  }
+
+  void togglePassword() {
+    isObscure = !isObscure;
+    notifyListeners();
+  }
+
+  void resetToggle() {
+    isObscure = true;
     notifyListeners();
   }
 }

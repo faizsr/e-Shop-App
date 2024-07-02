@@ -30,7 +30,7 @@ class ProductPageAppbar extends StatelessWidget {
           offset: Offset(-10.0, appBarHeight),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
-            side: const BorderSide(color: AppColors.blue, width: 1.5),
+            side: BorderSide(color: AppColors.blue, width: 1.5),
           ),
           itemBuilder: (ctx) => [
             _buildPopupMenuItem('Logout', CupertinoIcons.power, context),
@@ -62,7 +62,7 @@ class ProductPageAppbar extends StatelessWidget {
           gap(width: 10),
           Text(
             title,
-            style: const TextStyle(color: AppColors.blue),
+            style: TextStyle(color: AppColors.blue),
           ),
         ],
       ),
