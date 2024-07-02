@@ -12,16 +12,14 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
 
   ProductRemoteDataSourceImpl({required this.dio});
 
-  List<ProductEntity> products = [];
-
   @override
-  Future<List<ProductEntity>> fetchAllProducts() async {
+  Future<List<ProductEntity>> fetchAllProducts([bool onRefresh = false]) async {
+    List<ProductEntity> products = [];
+
     try {
       var response = await dio.get('$baseUrl?limit=20&skip=0');
       log('Response Statuscode: ${response.statusCode}');
       if (response.statusCode == 200) {
-        // log('Response Data: ${response.data['products']}');
-        log('Response Data Length: ${response.data['products'].length}');
         List jsonProducts = response.data['products'];
         for (int i = 0; i < jsonProducts.length; i++) {
           ProductModel productMo = ProductModel.fromJson(jsonProducts[i]);
@@ -35,6 +33,7 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
           ProductEntity productEn = ProductMapper.mapToEntity(productMo);
           products.add(productEn);
         }
+        log('Products length from data source: ${products.length}');
       }
     } catch (e) {
       log('Fetch Products Error: $e');

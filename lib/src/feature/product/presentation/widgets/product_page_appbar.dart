@@ -1,5 +1,6 @@
 import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:ecommerce_app/src/config/constants/app_textstyles.dart';
+import 'package:ecommerce_app/src/config/utils/alerts.dart';
 import 'package:ecommerce_app/src/config/utils/gap.dart';
 import 'package:ecommerce_app/src/config/utils/navigates.dart';
 import 'package:ecommerce_app/src/feature/auth/presentation/controllers/auth_controller.dart';
@@ -26,42 +27,45 @@ class ProductPageAppbar extends StatelessWidget {
           color: AppColors.white,
           elevation: 0,
           iconColor: AppColors.white,
-          onSelected: (value) {
-            nextScreenReplacement(context, const LoginPage());
-            Provider.of<AuthController>(context, listen: false).signOut();
-          },
           offset: Offset(-10.0, appBarHeight),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8),
             side: const BorderSide(color: AppColors.blue, width: 1.5),
           ),
           itemBuilder: (ctx) => [
-            _buildPopupMenuItem('Logout', CupertinoIcons.power),
+            _buildPopupMenuItem('Logout', CupertinoIcons.power, context),
           ],
         )
       ],
     );
   }
-}
 
-PopupMenuItem _buildPopupMenuItem(String title, IconData iconData) {
-  return PopupMenuItem(
-    padding: EdgeInsets.zero,
-    height: 25,
-    child: Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Icon(
-          iconData,
-          size: 22,
-          color: AppColors.blue,
-        ),
-        gap(width: 10),
-        Text(
-          title,
-          style: const TextStyle(color: AppColors.blue),
-        ),
-      ],
-    ),
-  );
+  PopupMenuItem _buildPopupMenuItem(
+      String title, IconData iconData, BuildContext context) {
+    return PopupMenuItem(
+      padding: EdgeInsets.zero,
+      height: 25,
+      onTap: () {
+        nextScreenReplacement(context, const LoginPage());
+        Provider.of<AuthController>(context, listen: false).signOut();
+        final snackbar = CustomAlerts.snackBar('Sucessfully Logged Out');
+        ScaffoldMessenger.of(context).showSnackBar(snackbar);
+      },
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(
+            iconData,
+            size: 22,
+            color: AppColors.blue,
+          ),
+          gap(width: 10),
+          Text(
+            title,
+            style: const TextStyle(color: AppColors.blue),
+          ),
+        ],
+      ),
+    );
+  }
 }

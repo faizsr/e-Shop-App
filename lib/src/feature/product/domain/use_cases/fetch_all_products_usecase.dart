@@ -6,7 +6,7 @@ class FetchAllProductsUsecase {
 
   FetchAllProductsUsecase({required this.productRepository});
 
-  Future<List<ProductEntity>> call() async {
-    return await productRepository.fetchAllProducts();
+  Future<List<ProductEntity>> call([bool onRefresh = false]) async {
+    return await productRepository.fetchAllProducts(onRefresh);
   }
 }

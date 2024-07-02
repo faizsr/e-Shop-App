@@ -71,6 +71,6 @@ class _ProductListPageState extends State<ProductListPage> {
 
   Future onRefresh() async {
     await Future.delayed(const Duration(seconds: 2));
-    Provider.of<ProductController>(context, listen: false).fetchAllProducts();
+    Provider.of<ProductController>(context, listen: false).fetchAllProducts(true);
   }
 }

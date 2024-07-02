@@ -18,11 +18,11 @@ class ProductController extends ChangeNotifier {
   bool isLoading = false;
   bool discountStatus = false;
 
-  fetchAllProducts() async {
+  fetchAllProducts([bool onRefresh = false]) async {
     isLoading = true;
     notifyListeners();
 
-    products = await fetchAllProductsUsecase.call();
+    products = await fetchAllProductsUsecase.call(onRefresh);
     discountStatus = await getDiscountStatusUsecase.call();
     log('Products length from controller: ${products.length}');
     log('Discount status from controller: $discountStatus');
