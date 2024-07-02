@@ -1,18 +1,21 @@
 import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:ecommerce_app/src/config/constants/app_textstyles.dart';
 import 'package:ecommerce_app/src/config/utils/gap.dart';
+import 'package:ecommerce_app/src/feature/product/domain/entities/product_entity.dart';
 import 'package:flutter/material.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
     super.key,
-    required this.size,
+    required this.product,
   });
 
-  final Size size;
+  final ProductEntity product;
 
   @override
   Widget build(BuildContext context) {
+    var size = MediaQuery.of(context).size;
+
     return Container(
       width: size.width / 2 - 20,
       decoration: BoxDecoration(
@@ -32,28 +35,33 @@ class ProductCard extends StatelessWidget {
           children: [
             Container(
               decoration: BoxDecoration(
-                color: AppColors.iceBlue,
+                color: AppColors.lightWhite,
+                image: DecorationImage(
+                  image: NetworkImage(product.thumbnail),
+                  fit: BoxFit.cover,
+                ),
                 borderRadius: BorderRadius.circular(10),
               ),
               height: 160,
             ),
             gap(height: 15),
             Text(
-              'iPhone 9',
+              product.title,
               style: AppTextStyles.heading2(),
-              maxLines: 3,
+              maxLines: 1,
               overflow: TextOverflow.ellipsis,
             ),
             gap(height: 8),
-            const Text(
-              'An apple mobile which is nothing like apple...',
+            Text(
+              product.description,
+              maxLines: 3,
             ),
             gap(height: 15),
             Row(
               children: [
-                const Text(
-                  "\$549",
-                  style: TextStyle(
+                Text(
+                  "\$${product.price}",
+                  style: const TextStyle(
                     fontSize: 10,
                     color: Colors.grey,
                     fontWeight: FontWeight.w500,
@@ -62,18 +70,18 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
                 gap(width: 8),
-                const Text(
-                  "\$499",
-                  style: TextStyle(
+                Text(
+                  "\$${product.discountedPrice}",
+                  style: const TextStyle(
                     fontSize: 10,
                     fontStyle: FontStyle.italic,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 gap(width: 8),
-                const Text(
-                  "12.96% off",
-                  style: TextStyle(
+                Text(
+                  "${product.discountPrecentage}% off",
+                  style: const TextStyle(
                     fontSize: 10,
                     fontWeight: FontWeight.w500,
                     color: Colors.amberAccent,

@@ -1,6 +1,7 @@
 import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:ecommerce_app/src/feature/auth/presentation/controllers/auth_controller.dart';
 import 'package:ecommerce_app/src/feature/auth/presentation/views/login/login_page.dart';
+import 'package:ecommerce_app/src/feature/product/presentation/controllers/product_controller.dart';
 import 'package:ecommerce_app/src/feature/product/presentation/views/product_list/product_list_page.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -21,6 +22,9 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(
           create: (context) => di.getIt<AuthController>(),
+        ),
+        ChangeNotifierProvider(
+          create: (context) => di.getIt<ProductController>(),
         )
       ],
       child: MaterialApp(
