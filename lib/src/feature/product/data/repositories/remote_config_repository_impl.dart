@@ -8,6 +8,7 @@ class RemoteConfigRepositoryImpl extends RemoteConfigRepository {
 
   @override
   Future<bool> getDiscountStatus() async {
+    await remoteConfigService.remoteConfig.fetchAndActivate();
     return remoteConfigService.discountStatus;
   }
 }

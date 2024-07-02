@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
           fontFamily: 'Poppins',
           scaffoldBackgroundColor: AppColors.lightWhite,
         ),
-        home: FutureBuilder(
+        home: FutureBuilder<bool>(
           future: di.getIt<AuthController>().userStatusUsecase.get(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {

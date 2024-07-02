@@ -1,10 +1,12 @@
+import 'dart:developer';
+
 import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:ecommerce_app/src/config/constants/app_textstyles.dart';
 import 'package:ecommerce_app/src/config/utils/gap.dart';
 import 'package:ecommerce_app/src/feature/product/domain/entities/product_entity.dart';
-import 'package:ecommerce_app/src/feature/product/domain/use_cases/get_discount_status_usecase.dart';
+import 'package:ecommerce_app/src/feature/product/presentation/controllers/product_controller.dart';
 import 'package:flutter/material.dart';
-import 'package:ecommerce_app/injection_container.dart' as di;
+import 'package:provider/provider.dart';
 
 class ProductCard extends StatelessWidget {
   const ProductCard({
@@ -88,28 +90,25 @@ class ProductCard extends StatelessWidget {
     );
   }
 
-  FutureBuilder<bool> discountWidget() {
-    return FutureBuilder(
-      future: di.getIt<GetDiscountStatusUsecase>().call(),
-      builder: (context, snapshot) {
-        if (snapshot.hasData) {
-          return snapshot.data ?? false
-              ? Padding(
-                  padding: const EdgeInsets.only(right: 8.0),
-                  child: Text(
-                    "\$${product.price.round()}",
-                    style: const TextStyle(
-                      fontSize: 12,
-                      color: Colors.grey,
-                      fontWeight: FontWeight.w500,
-                      fontStyle: FontStyle.italic,
-                      decoration: TextDecoration.lineThrough,
-                    ),
+  Consumer<ProductController> discountWidget() {
+    return Consumer<ProductController>(
+      builder: (context, value, child) {
+        log('Rebuilding again: ${value.discountStatus}');
+        return value.discountStatus
+            ? Padding(
+                padding: const EdgeInsets.only(right: 8.0),
+                child: Text(
+                  "\$${product.price.round()}",
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Colors.grey,
+                    fontWeight: FontWeight.w500,
+                    fontStyle: FontStyle.italic,
+                    decoration: TextDecoration.lineThrough,
                   ),
-                )
-              : gap();
-        }
-        return gap();
+                ),
+              )
+            : gap();
       },
     );
   }

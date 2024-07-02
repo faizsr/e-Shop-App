@@ -1,8 +1,10 @@
 import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:ecommerce_app/src/config/constants/app_textstyles.dart';
+import 'package:ecommerce_app/src/config/utils/gap.dart';
 import 'package:ecommerce_app/src/config/utils/navigates.dart';
 import 'package:ecommerce_app/src/feature/auth/presentation/controllers/auth_controller.dart';
 import 'package:ecommerce_app/src/feature/auth/presentation/views/login/login_page.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,6 +13,7 @@ class ProductPageAppbar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    var appBarHeight = AppBar().preferredSize.height - 15;
     return AppBar(
       toolbarHeight: 70,
       backgroundColor: AppColors.blue,
@@ -19,14 +22,46 @@ class ProductPageAppbar extends StatelessWidget {
         style: AppTextStyles.primary(),
       ),
       actions: [
-        IconButton(
-          onPressed: () {
+        PopupMenuButton(
+          color: AppColors.white,
+          elevation: 0,
+          iconColor: AppColors.white,
+          onSelected: (value) {
             nextScreenReplacement(context, const LoginPage());
             Provider.of<AuthController>(context, listen: false).signOut();
           },
-          icon: const Icon(Icons.logout, color: AppColors.white),
+          offset: Offset(-10.0, appBarHeight),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+            side: const BorderSide(color: AppColors.blue, width: 1.5),
+          ),
+          itemBuilder: (ctx) => [
+            _buildPopupMenuItem('Logout', CupertinoIcons.power),
+          ],
         )
       ],
     );
   }
+}
+
+PopupMenuItem _buildPopupMenuItem(String title, IconData iconData) {
+  return PopupMenuItem(
+    padding: EdgeInsets.zero,
+    height: 25,
+    child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          iconData,
+          size: 22,
+          color: AppColors.blue,
+        ),
+        gap(width: 10),
+        Text(
+          title,
+          style: const TextStyle(color: AppColors.blue),
+        ),
+      ],
+    ),
+  );
 }

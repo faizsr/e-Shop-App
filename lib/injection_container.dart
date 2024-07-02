@@ -42,13 +42,6 @@ Future<void> init() async {
 
   // Initialize Remote Config
   final remoteConfig = FirebaseRemoteConfig.instance;
-  await remoteConfig.setConfigSettings(
-    RemoteConfigSettings(
-      fetchTimeout: const Duration(minutes: 1),
-      minimumFetchInterval: const Duration(seconds: 1),
-    ),
-  );
-  await remoteConfig.fetchAndActivate();
 
   getIt.registerLazySingleton(() => auth);
   getIt.registerLazySingleton(() => fireStore);
@@ -68,6 +61,7 @@ Future<void> init() async {
   getIt.registerFactory<ProductController>(
     () => ProductController(
       fetchAllProductsUsecase: getIt.call(),
+      getDiscountStatusUsecase: getIt.call(),
     ),
   );
 
