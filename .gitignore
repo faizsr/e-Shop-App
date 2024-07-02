@@ -43,4 +43,4 @@ app.*.map.json
 /android/app/release
 
 # Api credential
-lib/src/config/constants/strings.dart
+/lib/src/config/constants/strings.dart
