@@ -1,8 +1,11 @@
 import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:ecommerce_app/src/config/constants/app_textstyles.dart';
+import 'package:ecommerce_app/src/config/utils/navigates.dart';
+import 'package:ecommerce_app/src/feature/auth/presentation/controllers/auth_controller.dart';
 import 'package:ecommerce_app/src/feature/auth/presentation/views/login/login_page.dart';
 import 'package:ecommerce_app/src/feature/product/presentation/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class ProductListPage extends StatelessWidget {
   const ProductListPage({super.key});
@@ -23,10 +26,8 @@ class ProductListPage extends StatelessWidget {
           actions: [
             IconButton(
               onPressed: () {
-                Navigator.pushReplacement(
-                  context,
-                  MaterialPageRoute(builder: (context) => const LoginPage()),
-                );
+                nextScreenReplacement(context, const LoginPage());
+                Provider.of<AuthController>(context, listen: false).signOut();
               },
               icon: const Icon(Icons.logout, color: AppColors.white),
             )
