@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:ecommerce_app/src/config/constants/app_colors.dart';
 import 'package:ecommerce_app/src/config/constants/app_textstyles.dart';
 import 'package:ecommerce_app/src/config/utils/gap.dart';
@@ -93,7 +91,6 @@ class ProductCard extends StatelessWidget {
   Consumer<ProductController> discountWidget() {
     return Consumer<ProductController>(
       builder: (context, value, child) {
-        log('Rebuilding again: ${value.discountStatus}');
         return value.discountStatus
             ? Padding(
                 padding: const EdgeInsets.only(right: 8.0),

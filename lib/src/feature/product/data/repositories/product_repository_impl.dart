@@ -8,7 +8,7 @@ class ProductRepositoryImpl extends ProductRepository {
   ProductRepositoryImpl({required this.productRemoteDataSource});
 
   @override
-  Future<List<ProductEntity>> fetchAllProducts([bool onRefresh = false]) async {
-    return productRemoteDataSource.fetchAllProducts(onRefresh);
+  Future<List<ProductEntity>> fetchAllProducts({int skipUpto = 0}) async {
+    return productRemoteDataSource.fetchAllProducts(skipUpto: skipUpto);
   }
 }

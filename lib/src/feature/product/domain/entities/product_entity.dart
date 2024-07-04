@@ -22,6 +22,7 @@ class ProductEntity {
   final String returnPolicy;
   final int minimumOrderQuantity;
   final List<Review> reviews;
+  int totalProducts;
 
   ProductEntity({
     required this.id,
@@ -44,5 +45,6 @@ class ProductEntity {
     required this.returnPolicy,
     required this.minimumOrderQuantity,
     required this.reviews,
+    required this.totalProducts,
   });
 }
