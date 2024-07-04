@@ -24,6 +24,7 @@ class ProductModel extends ProductEntity {
     required super.returnPolicy,
     required super.minimumOrderQuantity,
     required super.reviews,
+    super.totalProducts = 0,
   });
 
   factory ProductModel.fromJson(Map<String, dynamic> json) {

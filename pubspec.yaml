@@ -46,6 +46,7 @@ dependencies:
   page_transition: ^2.1.0
   dio: ^5.4.3+1
   firebase_remote_config: ^5.0.2
+  pull_to_refresh_flutter3: ^2.0.2
 
 dev_dependencies:
   flutter_test:

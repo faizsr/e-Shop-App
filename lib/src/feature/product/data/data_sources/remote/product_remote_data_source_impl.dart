@@ -13,17 +13,18 @@ class ProductRemoteDataSourceImpl implements ProductRemoteDataSource {
   ProductRemoteDataSourceImpl({required this.dio});
 
   @override
-  Future<List<ProductEntity>> fetchAllProducts([bool onRefresh = false]) async {
+  Future<List<ProductEntity>> fetchAllProducts({int skipUpto = 0}) async {
     List<ProductEntity> products = [];
 
     try {
-      var response = await dio.get('$baseUrl?limit=20&skip=0');
+      var response = await dio.get('$baseUrl?limit=10&skip=$skipUpto');
       log('Response Statuscode: ${response.statusCode}');
       if (response.statusCode == 200) {
         List jsonProducts = response.data['products'];
+        int totalProducts = response.data['total'];
         for (int i = 0; i < jsonProducts.length; i++) {
           ProductModel productMo = ProductModel.fromJson(jsonProducts[i]);
-
+          productMo.totalProducts = totalProducts;
           // Calcuating Discounted Price
           double discountedPrice = (productMo.price -
               (productMo.price * (productMo.discountPrecentage / 100)));

@@ -17,12 +17,23 @@ class ProductController extends ChangeNotifier {
   List<ProductEntity> products = [];
   bool isLoading = false;
   bool discountStatus = false;
+  int skipUpto = 0;
+  int totalProducts = 0;
 
-  fetchAllProducts([bool onRefresh = false]) async {
-    isLoading = true;
-    notifyListeners();
-
-    products = await fetchAllProductsUsecase.call(onRefresh);
+  fetchAllProducts({bool onRefresh = false}) async {
+    if (onRefresh) {
+      isLoading = true;
+      notifyListeners();
+      products = await fetchAllProductsUsecase.call();
+      notifyListeners();
+    } else {
+      skipUpto += 10;
+      totalProducts = products[products.length - 1].totalProducts;
+      if (products.length < totalProducts) {
+        products.addAll(await fetchAllProductsUsecase.call(skipUpto: skipUpto));
+      }
+      notifyListeners();
+    }
     discountStatus = await getDiscountStatusUsecase.call();
     log('Products length from controller: ${products.length}');
     log('Discount status from controller: $discountStatus');
@@ -30,5 +41,6 @@ class ProductController extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
+    return [products.length, totalProducts];
   }
 }

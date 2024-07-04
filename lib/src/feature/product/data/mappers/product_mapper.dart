@@ -4,27 +4,27 @@ import 'package:ecommerce_app/src/feature/product/domain/entities/product_entity
 class ProductMapper {
   static ProductEntity mapToEntity(ProductModel model) {
     return ProductEntity(
-      id: model.id,
-      title: model.title,
-      description: model.description,
-      category: model.category,
-      price: model.price,
-      discountedPrice: model.discountedPrice,
-      discountPrecentage: model.discountPrecentage,
-      rating: model.rating,
-      stock: model.stock,
-      images: model.images,
-      tags: model.tags,
-      thumbnail: model.thumbnail,
-      meta: model.meta,
-      weight: model.weight,
-      warrantyInfo: model.warrantyInfo,
-      shippingInfo: model.shippingInfo,
-      availabilityStatus: model.availabilityStatus,
-      returnPolicy: model.returnPolicy,
-      minimumOrderQuantity: model.minimumOrderQuantity,
-      reviews: model.reviews,
-    );
+        id: model.id,
+        title: model.title,
+        description: model.description,
+        category: model.category,
+        price: model.price,
+        discountedPrice: model.discountedPrice,
+        discountPrecentage: model.discountPrecentage,
+        rating: model.rating,
+        stock: model.stock,
+        images: model.images,
+        tags: model.tags,
+        thumbnail: model.thumbnail,
+        meta: model.meta,
+        weight: model.weight,
+        warrantyInfo: model.warrantyInfo,
+        shippingInfo: model.shippingInfo,
+        availabilityStatus: model.availabilityStatus,
+        returnPolicy: model.returnPolicy,
+        minimumOrderQuantity: model.minimumOrderQuantity,
+        reviews: model.reviews,
+        totalProducts: model.totalProducts);
   }
 
   static ProductModel mapToModel(ProductEntity entity) {
@@ -49,6 +49,7 @@ class ProductMapper {
       returnPolicy: entity.returnPolicy,
       minimumOrderQuantity: entity.minimumOrderQuantity,
       reviews: entity.reviews,
+      totalProducts: entity.totalProducts,
     );
   }
 }
